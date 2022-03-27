@@ -1,0 +1,15 @@
+:root {
+  --custom-blue: #029dff;
+  --custom-faded-blue: #80ccfc;
+}
+
+.bg-custom-blue {
+  background-color: var(--custom-blue);
+}
+
+body {
+  margin: 0;
+  font-family: "Roboto Mono", monospace;
+  /* color: var(--custom-blue); */
+  background-color: var(--custom-faded-blue);
+}
