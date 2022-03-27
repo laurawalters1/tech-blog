@@ -7,6 +7,14 @@
   background-color: var(--custom-blue);
 }
 
+.text-custom-blue {
+  color: var(--custom-faded-blue);
+}
+
+.custom-hover-text:hover {
+  color: var(--custom-faded-blue);
+}
+
 body {
   margin: 0;
   font-family: "Roboto Mono", monospace;
