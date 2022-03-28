@@ -1,8 +1,19 @@
 const sequelize = require("../config/connection");
-const User = require("../models");
+const { User, Post } = require("../models");
 const { bulkCreate } = require("../models/User");
-
+const postData = require("./postData.json");
 const userData = require("./userData.json");
+
+// const seedDatabase = async () => {
+//   await sequelize.sync({ force: true });
+
+//   await User.bulkCreate(userData, {
+//     individualHooks: true,
+//     returning: true,
+//   });
+
+//   process.exit(0);
+// };
 
 const seedDatabase = async () => {
   await sequelize.sync({ force: true });
@@ -12,7 +23,17 @@ const seedDatabase = async () => {
     returning: true,
   });
 
-  process.exit(0);
+  await Post.bulkCreate(postData, {
+    individualHooks: true,
+    returning: true,
+  });
+
+  // for (const post of postData) {
+  //   await Post.create({
+  //     ...post,
+  //     user_id: users[Math.floor(Math.random() * users.length)].id,
+  //   });
+  // }
 };
 
 seedDatabase();
