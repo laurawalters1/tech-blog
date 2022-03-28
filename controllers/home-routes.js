@@ -26,4 +26,8 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/login-page", (req, res) => {
+  res.render("login");
+});
+
 module.exports = router;
