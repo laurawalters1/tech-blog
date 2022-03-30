@@ -42,4 +42,17 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/signup", async (req, res) => {
+  try {
+    const newUser = await User.create({
+      ...req.body,
+    });
+    console.log(newUser);
+    console.log("success!");
+    res.status(200).json(newUser);
+  } catch (error) {
+    console.log("there was an error");
+    res.status(404);
+  }
+});
 module.exports = router;

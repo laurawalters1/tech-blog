@@ -30,4 +30,8 @@ router.get("/login-page", (req, res) => {
   res.render("login");
 });
 
+router.get("/signup-page", (req, res) => {
+  res.render("signup");
+});
+
 module.exports = router;
