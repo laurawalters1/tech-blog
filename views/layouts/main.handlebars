@@ -42,8 +42,14 @@
         </form>
 
         <div class="text-end">
+             {{#if logged_in}}
+
+      <button class="btn" id="logout">logout</button>
+
+        {{else}}
           <button type="button" class="btn btn-outline-light bg-custom-blue me-2">Login</button>
           <button type="button" class="btn bg-custom-blue">Sign-up</button>
+              {{/if}}
         </div>
       </div>
     </div>
