@@ -1,18 +1,19 @@
 
 <div class="container d-flex flex-column align-items-center">
-<form action="/api/users/signup" method="POST" class="col-12 col-md-6">
+<form class="col-12 col-md-6 signup-form">
 <div class="mb-3">
   <label for="formGroupExampleInput" class="form-label text-white">Name</label>
-  <input name="name" type="text" class="form-control" id="formGroupExampleInput" placeholder="Type in your Email">
+  <input name="name" type="text" class="form-control" id="name-signup" placeholder="Type in your Full-Name">
 </div>
 <div class="mb-3">
   <label for="formGroupExampleInput" class="form-label text-white">Email</label>
-  <input name="email" type="text" class="form-control" id="formGroupExampleInput" placeholder="Type in your Email">
+  <input name="email" type="text" class="form-control" id="email-signup" placeholder="Type in your Email">
 </div>
 <div class="mb-3">
   <label for="formGroupExampleInput2" class="form-label text-white">Password</label>
-  <input name="password" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Type in your Password">
+  <input name="password" type="text" class="form-control" id="password-signup" placeholder="Type in your Password">
 </div>
-<button class="btn btn-outline-light btn-lg custom-hover-text px-4 me-sm-3 fw-bold">Sign Up</button>
+<button type="submit" class="btn btn-outline-light btn-lg custom-hover-text px-4 me-sm-3 fw-bold">Sign Up</button>
 </form>
 </div>
+<script src="./js/login.js"></script>

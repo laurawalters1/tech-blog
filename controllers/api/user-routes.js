@@ -1,18 +1,28 @@
+const router = require("express").Router();
 const { User } = require("../../models");
 
-const router = require("express").Router();
+router.post("/signup", async (req, res) => {
+  console.log("signup route hit");
+  try {
+    const userData = await User.create(req.body);
 
-// router.get("/", (req, res) => {
-//   res.render("login");
-// });
+    req.session.save(() => {
+      req.session.user_id = userData.id;
+      req.session.logged_in = true;
+
+      res.status(200).json(userData);
+    });
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
 
 router.post("/login", async (req, res) => {
   console.log(req.body);
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
-
+    console.log(userData);
     if (!userData) {
-      console.log("no user data");
       res
         .status(400)
         .json({ message: "Incorrect email or password, please try again" });
@@ -22,39 +32,32 @@ router.post("/login", async (req, res) => {
     const validPassword = await userData.checkPassword(req.body.password);
 
     if (!validPassword) {
-      console.log("invalid password");
       res
         .status(400)
         .json({ message: "Incorrect email or password, please try again" });
       return;
     }
 
-    console.log("We found this user!");
-    // res.status(200);
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-
-      // res.json({ user: userData, message: "You are now logged in!" });
-      // res.status(200);
-      res.redirect("/");
+      res
+        .status(200)
+        .json({ user: userData, message: "You are now logged in!" });
     });
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-router.post("/signup", async (req, res) => {
-  try {
-    const newUser = await User.create({
-      ...req.body,
+router.post("/logout", (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
     });
-    console.log(newUser);
-    console.log("success!");
-    res.status(200).json(newUser);
-  } catch (error) {
-    console.log("there was an error");
-    res.status(404);
+  } else {
+    res.status(404).end();
   }
 });
+
 module.exports = router;

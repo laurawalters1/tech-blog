@@ -1,0 +1,9 @@
+<h1>Welcome {{name}}</h1>
+
+  <div class="container">
+        {{#each posts as |post| }}
+            {{>post}}
+        {{/each}}
+  </div>
+
+<script src="./js/dashboard.js"></script>
