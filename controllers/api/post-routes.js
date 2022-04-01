@@ -1,11 +1,24 @@
 const router = require("express").Router();
-const { Post } = require("../../models");
+const { Post, User } = require("../../models");
 
 router.get("/:id", async (req, res) => {
   try {
-    const postData = await Post.findOne({ where: { id: req.params.id } });
+    console.log(req.session);
+
+    const postData = await Post.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ["name"],
+        },
+      ],
+    });
     const post = postData.get({ plain: true });
-    res.render("post", post);
+    console.log(post);
+    const ownPost = post.user_id === req.session.user_id;
+    console.log(ownPost);
+
+    res.render("post", { ...post, ownPost, logged_in: req.session.logged_in });
   } catch (error) {}
 });
 
