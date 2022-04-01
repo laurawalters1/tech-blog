@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Post, User } = require("../../models");
+const { Post, User, Comment } = require("../../models");
 
 router.get("/:id", async (req, res) => {
   try {
@@ -11,14 +11,24 @@ router.get("/:id", async (req, res) => {
           model: User,
           attributes: ["name"],
         },
+        {
+          model: Comment,
+          as: "comments",
+          include: [User],
+        },
       ],
     });
+
     const post = postData.get({ plain: true });
+
     console.log(post);
     const ownPost = post.user_id === req.session.user_id;
-    console.log(ownPost);
 
-    res.render("post", { ...post, ownPost, logged_in: req.session.logged_in });
+    res.render("post", {
+      ...post,
+      ownPost,
+      logged_in: req.session.logged_in,
+    });
   } catch (error) {}
 });
 
