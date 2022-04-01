@@ -34,6 +34,9 @@ router.get("/login-page", (req, res) => {
 router.get("/signup-page", (req, res) => {
   res.render("login");
 });
+router.get("/new-post", (req, res) => {
+  res.render("new-post", { logged_in: req.session.logged_in });
+});
 
 // Use withAuth middleware to prevent access to route
 router.get("/dashboard", async (req, res) => {
