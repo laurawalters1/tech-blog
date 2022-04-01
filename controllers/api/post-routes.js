@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Post, User, Comment } = require("../../models");
+const withAuth = require("../../utils/auth");
 
 router.get("/:id", async (req, res) => {
   try {
@@ -32,7 +33,7 @@ router.get("/:id", async (req, res) => {
   } catch (error) {}
 });
 
-router.post("/create", async (req, res) => {
+router.post("/create", withAuth, async (req, res) => {
   console.log("create route hit");
   console.log(req.body);
   try {
@@ -46,7 +47,7 @@ router.post("/create", async (req, res) => {
   }
 });
 
-router.put("/update", async (req, res) => {
+router.put("/update", withAuth, async (req, res) => {
   console.log("edit route hit");
   console.log(req.body);
   //   try {
@@ -77,7 +78,7 @@ router.put("/update", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", withAuth, async (req, res) => {
   try {
     const postData = await Post.destroy({
       where: {

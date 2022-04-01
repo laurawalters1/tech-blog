@@ -35,11 +35,11 @@ router.get("/login-page", (req, res) => {
 router.get("/signup-page", (req, res) => {
   res.render("login");
 });
-router.get("/new-post", (req, res) => {
+router.get("/new-post", withAuth, (req, res) => {
   res.render("new-post", { logged_in: req.session.logged_in });
 });
 
-router.get("/edit-post/:id", async (req, res) => {
+router.get("/edit-post/:id", withAuth, async (req, res) => {
   const postData = await Post.findByPk(req.params.id, {
     include: [
       {
@@ -53,7 +53,7 @@ router.get("/edit-post/:id", async (req, res) => {
 });
 
 // Use withAuth middleware to prevent access to route
-router.get("/dashboard", async (req, res) => {
+router.get("/dashboard", withAuth, async (req, res) => {
   try {
     console.log("dashboard");
     console.log(req.session);
