@@ -1,0 +1,16 @@
+<h1>Edit Post</h1>
+
+<div class="container d-flex flex-column align-items-center">
+<form class="col-12 col-md-6 update-post-form" data-id={{post.id}} >
+
+<input name="title" type="text" class="form-control mb-3" id="title" placeholder="Post Title" value="{{post.title}}">
+
+<textarea name="body" type="text" class="form-control mb-3" id="body" placeholder="Post Content">{{post.body}}</textarea>
+
+<a href=""><button type="submit" class="btn btn-outline-light btn-lg px-4 me-sm-3 fw-bold">Update</button></a>
+</form>
+</div>
+
+{{#if logged_in}}
+  <script src="/js/edit.js"></script>
+  {{/if}}

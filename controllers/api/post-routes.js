@@ -24,6 +24,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/create", async (req, res) => {
   console.log("create route hit");
+  console.log(req.body);
   try {
     const newPost = await Post.create({
       ...req.body,
@@ -34,6 +35,38 @@ router.post("/create", async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+router.put("/update", async (req, res) => {
+  console.log("edit route hit");
+  console.log(req.body);
+  //   try {
+  //     const updatedPost = await Post.update({
+  //       where: {
+  //         id: req.body.id,
+  //       },
+  //       ...req.body,
+  //       user_id: req.session.id,
+  //     });
+  //     console.log(updatedPost);
+  //     res
+  //       .json("updated")
+  //       .status(200)
+  //       .render("dashboard", { logged_in: req.session.logged_in });
+  //   } catch (err) {
+  //     res.status(400).json(err);
+  //   }
+  try {
+    await Post.update(req.body, { where: { id: req.body.id } });
+    // console.log(updatedPost);
+    res
+      .json("updated")
+      .status(200)
+      .render("dashboard", { logged_in: req.session.logged_in });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.delete("/:id", async (req, res) => {
   try {
     const postData = await Post.destroy({
@@ -43,15 +76,12 @@ router.delete("/:id", async (req, res) => {
       },
     });
     console.log("This is the post data" + postData);
-    if (!projectData) {
-      res.status(404).json({ message: "No project found with this id!" });
+    if (!postData) {
+      res.status(404).json({ message: "No post found with this id!" });
       return;
     }
 
-    res
-      .status(200)
-      .render("dashboard", { logged_in: req.session.logged_in })
-      .json(postData);
+    res.status(200).render("dashboard", { logged_in: req.session.logged_in });
   } catch (err) {
     res.status(500).json(err);
   }

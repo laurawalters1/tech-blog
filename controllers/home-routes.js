@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { Post, User } = require("../models");
+const { findByPk } = require("../models/User");
 const withAuth = require("../utils/auth");
 router.get("/", async (req, res) => {
   //   res.render("homepage");
@@ -36,6 +37,19 @@ router.get("/signup-page", (req, res) => {
 });
 router.get("/new-post", (req, res) => {
   res.render("new-post", { logged_in: req.session.logged_in });
+});
+
+router.get("/edit-post/:id", async (req, res) => {
+  const postData = await Post.findByPk(req.params.id, {
+    include: [
+      {
+        model: User,
+        attributes: ["name"],
+      },
+    ],
+  });
+  const post = postData.get({ plain: true });
+  res.render("edit-post", { post, logged_in: req.session.logged_in });
 });
 
 // Use withAuth middleware to prevent access to route
