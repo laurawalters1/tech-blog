@@ -50,22 +50,6 @@ router.post("/create", withAuth, async (req, res) => {
 router.put("/update", withAuth, async (req, res) => {
   console.log("edit route hit");
   console.log(req.body);
-  //   try {
-  //     const updatedPost = await Post.update({
-  //       where: {
-  //         id: req.body.id,
-  //       },
-  //       ...req.body,
-  //       user_id: req.session.id,
-  //     });
-  //     console.log(updatedPost);
-  //     res
-  //       .json("updated")
-  //       .status(200)
-  //       .render("dashboard", { logged_in: req.session.logged_in });
-  //   } catch (err) {
-  //     res.status(400).json(err);
-  //   }
   try {
     await Post.update(req.body, { where: { id: req.body.id } });
     // console.log(updatedPost);
