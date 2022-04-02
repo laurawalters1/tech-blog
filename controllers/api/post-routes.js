@@ -54,7 +54,7 @@ router.put("/update", withAuth, async (req, res) => {
     await Post.update(req.body, { where: { id: req.body.id } });
     // console.log(updatedPost);
     res
-      .json("updated")
+      //   .json("updated")
       .status(200)
       .render("dashboard", { logged_in: req.session.logged_in });
   } catch (err) {
